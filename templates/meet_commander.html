@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Commander Briefing</title>
+    <style>
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 0; 
+            padding: 20px; 
+            background-color: #1a1a1a; 
+            color: #00ff00; 
+        }
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            background-color: #000; 
+            padding: 20px; 
+            border: 2px solid #00ff00; 
+            text-align: center;
+        }
+        .goals-review { 
+            margin: 20px 0; 
+            padding: 20px; 
+            border: 1px solid #00ff00;
+            background-color: #002200;
+        }
+        button { 
+            padding: 15px 30px; 
+            background-color: #004400; 
+            color: #00ff00; 
+            border: 1px solid #00ff00; 
+            cursor: pointer; 
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        button:hover { 
+            background-color: #006600; 
+            box-shadow: 0 0 10px #00ff00;
+        }
+        .typing-effect {
+            overflow: hidden;
+            border-right: .15em solid #00ff00;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00ff00 }
+        }
+        .status-bar {
+            border: 1px solid #00ff00;
+            padding: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .objective {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #00ff00;
+            text-align: left;
+        }
+        .blink {
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+        .commander-info {
+            text-align: left;
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="typing-effect">⚡ COMMANDER INTERFACE ACTIVATED ⚡</h1>
+        
+        <div class="status-bar">
+            <p>SYSTEM STATUS: <span class="blink">ONLINE</span></p>
+            <p>SECURITY CLEARANCE: LEVEL 1</p>
+            <p>TIME: <span id="current-time"></span></p>
+        </div>
+
+        <div class="commander-info">
+            <h3>// COMMANDER PROFILE</h3>
+            <p>DESIGNATION: AI-CMD-{{ range(1000, 9999) | random }}</p>
+            <p>SPECIALIZATION: Personal Achievement Optimization</p>
+            <p>PROTOCOL: Maximum Efficiency Training</p>
+        </div>
+        
+        <div class="goals-review">
+    <h2>// MISSION OBJECTIVES CONFIRMED:</h2>
+    {% for goal in goals %}
+        <div class="objective">
+            <p>◉ {{ goal['goal'] }}</p>
+            <p style="margin-left: 20px;">PRIORITY: {{ goal['priority'] | upper }}</p>
+            <p style="margin-left: 20px;">TIMEFRAME: {{ goal['timeframe'] }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+        <p class="typing-effect">Awaiting recruit confirmation to begin mission...</p>
+        
+        <button onclick="startMission()">INITIATE TRAINING PROTOCOL</button>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0];
+            document.getElementById('current-time').textContent = timeStr;
+        }
+
+        function startMission() {
+            const button = document.querySelector('button');
+            button.style.backgroundColor = '#008800';
+            button.innerHTML = 'INITIALIZING...';
+            setTimeout(() => {
+                window.location.href = '/dashboard';
+            }, 1500);
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
